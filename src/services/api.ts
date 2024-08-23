@@ -21,20 +21,4 @@ const fetchData = async <T>(url: string): Promise<T> => {
     }
 }
 
-// const postData = async ({ url, data}: { url: string}) => {
-//     try { 
-//         const response = await axios({
-//             url: url,
-//             method: "POST",
-//             fetchOptions: options,
-//             data
-//         })
-//     } catch(error) {
-//         if(error instanceof Error) {
-//             throw new Error(error.message)
-
-//         }
-//     }
-// }
-
 export default fetchData

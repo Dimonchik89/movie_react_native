@@ -38,6 +38,7 @@ const SearchScreen = () => {
   const [activeButton, setActiveButton] = useState<'movie' | 'tv'>(
     buttons[0].path,
   );
+  const [showButtonSwitcher, setShowButtonSwitcher] = useState(false);
   const ref = useRef<FlatList>(null);
 
   const [isQueried, setIsQueried] = useState(false);
@@ -66,6 +67,8 @@ const SearchScreen = () => {
     movieRefetch();
     Keyboard.dismiss();
     ref.current?.scrollToOffset({offset: 0, animated: true});
+
+    setShowButtonSwitcher(true);
   };
 
   const nextPage = () => {
@@ -86,12 +89,16 @@ const SearchScreen = () => {
     <View style={styles.container}>
       <SearchForm text={text} setText={setText} handleSearch={handleSearch} />
       <View style={styles.content}>
-        <ButtonSwitcher
-          buttons={buttons}
-          title="Категорiя"
-          active={activeButton}
-          handleChangeActive={handleChangeActiveButton}
-        />
+        {showButtonSwitcher ? (
+          <ButtonSwitcher
+            buttons={buttons}
+            title="Категорiя"
+            active={activeButton}
+            handleChangeActive={handleChangeActiveButton}
+          />
+        ) : (
+          <></>
+        )}
         <Spinner isLoading={isMovieLoading} />
         <Error isError={isMovieError} error={movieError} />
         {isFetched && movieData && movieData.results.length === 0 && (
